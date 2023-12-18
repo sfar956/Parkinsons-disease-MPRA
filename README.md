@@ -45,6 +45,11 @@ This repository contains scripts used to process sequencing data from Massively 
 
 # MPRA allele specific and general enhancer analysis 
 
+## Requirements
+
+* R 4.1
+* mpralm 
+
 # RNAseq analysis (CRISPR DEGs)
 
 ## Requirements
@@ -54,4 +59,4 @@ This repository contains scripts used to process sequencing data from Massively 
 * STAR (v2.7.9a)
 * Subread (v2.0.3)
 * Featurecounts
-* DESeQ2 (v1.42) 
+* DESeQ2 (v1.42)
