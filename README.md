@@ -47,14 +47,14 @@ This repository contains scripts used to process sequencing data from Massively 
 
 ## Requirements
 
-* R 4.1
+* R > 4.1
 * mpralm 
 
 # RNAseq analysis (CRISPR DEGs)
 
 ## Requirements
 
-* R 4.1
+* R > 4.1
 * multiQC (v1.13)
 * STAR (v2.7.9a)
 * Subread (v2.0.3)
