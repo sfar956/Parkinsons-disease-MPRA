@@ -1,0 +1,119 @@
+# MPRAlm ------------------------------------------------------------------
+
+# Arrange table for MPRAlm
+
+PD_mpralm <- read_tsv("PD_both.tsv", show_col_types = FALSE)
+
+cdna <- PD_mpralm %>%
+  select(ID, allele, cDNA1_BC, cDNA2_BC, cDNA3_BC) %>%
+  distinct() %>%
+  pivot_longer(cols = !c(ID, allele), names_to = "sample", values_to = "count") %>%
+  mutate(sample_allele = paste0(sample,"_",allele)) %>%
+  select(-allele, -sample) %>%
+  pivot_wider(id_cols = ID, names_from = sample_allele, values_from = count)
+
+cdna_mat <- cdna %>%
+  rename("sample1_allele2" = "cDNA1_BC_allele2",
+         "sample2_allele2" = "cDNA2_BC_allele2",
+         "sample3_allele2" = "cDNA3_BC_allele2",
+         "sample1_allele1" = "cDNA1_BC_allele1",
+         "sample2_allele1" = "cDNA2_BC_allele1",
+         "sample3_allele1" = "cDNA3_BC_allele1") %>%
+  select(-ID) %>%
+  relocate(sample1_allele1, sample2_allele1, sample3_allele1) %>%
+  as.matrix()
+
+rownames(cdna_mat) <- cdna$ID
+
+gdna <- PD_mpralm %>%
+  select(ID, allele, gDNA1_BC, gDNA2_BC, gDNA3_BC) %>%
+  distinct() %>%
+  pivot_longer(cols = !c(ID, allele), names_to = "sample", values_to = "count") %>%
+  mutate(sample_allele = paste0(sample,"_",allele)) %>%
+  select(-allele, -sample) %>%
+  pivot_wider(id_cols = ID, names_from = sample_allele, values_from = count)
+
+gdna_mat <- gdna %>%
+  rename("sample1_allele2" = "gDNA1_BC_allele2",
+         "sample2_allele2" = "gDNA2_BC_allele2",
+         "sample3_allele2" = "gDNA3_BC_allele2",
+         "sample1_allele1" = "gDNA1_BC_allele1",
+         "sample2_allele1" = "gDNA2_BC_allele1",
+         "sample3_allele1" = "gDNA3_BC_allele1") %>%
+  select(-ID) %>%
+  relocate(sample1_allele1, sample2_allele1, sample3_allele1) %>%
+  as.matrix()
+
+rownames(gdna_mat) <- gdna$ID
+
+eid <- cdna$ID
+
+# MPRAset 
+
+mpraset <- MPRASet(DNA = gdna_mat, RNA = cdna_mat, eid = eid, eseq = NULL, barcode = NULL)
+design <- data.frame(intcpt = 1, alleleB = grepl("_allele2", colnames(mpraset)))
+block_vector <- rep(1:3,2)
+
+# Run MPRAlm pipeline 
+
+mpralm <- mpralm(object = mpraset, design = design, aggregate = "none", block = block_vector, normalize = TRUE, model_type = "corr_groups", plot = TRUE)
+mpralm
+
+# Write table - MPRAlm complete
+
+write.fit(mpralm, results = NULL, "mpralm_PD.txt", sep = "\t")
+PD_mpra_allele <- topTable(mpralm, coef = 2, number = Inf)
+write.table(PD_mpra_allele, "MPRA_PD_allele.txt", sep = "\t", row.names = TRUE)
+
+# Volcano plot LogFC (mpralm) ------------------------------------------------------
+
+PD_mpra_allele <- PD_mpra_allele %>%
+  mutate(
+    Significant = case_when(adj.P.Val < 0.05 ~ "Significant",
+                            adj.P.Val >= 0.05 & adj.P.Val < 0.10 ~ "Suggestive",
+                            adj.P.Val >= 0.10 ~ "NS")
+  )
+
+ggplot(PD_mpra_allele, aes(x = logFC, y = -log10(adj.P.Val))) +
+  geom_point(aes(color = Significant),  size = 2.0) +
+  scale_color_manual(values = c("black", "red", "darkgray")) +
+  theme_minimal() +
+  geom_hline(yintercept = c(-log10(0.05),-log10(0.10)), col="red") + 
+  ylab("-log10 MPRA FDR") +
+  xlab("logFC")
+
+
+# cDNA:gDNA ratios for general enhancers (Not allele specific) ------------
+
+#PD_cdna_gdna_agg$allele <- ifelse(grepl("ref", PD_cdna_gdna_agg$ID), "allele1","allele2") # 1 = ref; 2 = alt
+PD_cdna_gdna_agg$ratio1 <- log2(PD_cdna_gdna_agg$cDNA1_BC/PD_cdna_gdna_agg$gDNA1_BC) #use if want to calculate ratios of gDNA:cDNA
+PD_cdna_gdna_agg$ratio2 <- log2(PD_cdna_gdna_agg$cDNA2_BC/PD_cdna_gdna_agg$gDNA2_BC)
+PD_cdna_gdna_agg$ratio3 <- log2(PD_cdna_gdna_agg$cDNA3_BC/PD_cdna_gdna_agg$gDNA3_BC)
+PD_cdna_gdna_agg$mean_ratio <- rowMeans(PD_cdna_gdna_agg[, c(8,9,10)], na.rm = TRUE)
+
+PD_cdna_gdna_agg <- PD_cdna_gdna_agg %>%
+  rowwise() %>%
+  mutate(median_ratio = median(c(ratio1, ratio2, ratio3), na.rm = TRUE))
+
+PD_cdna_gdna_agg <- PD_cdna_gdna_agg %>%
+  relocate(allele, .after = ID)
+
+write.table(PD_cdna_gdna_agg, "PD_cdna_gdna_ratios.txt", sep = "\t", row.names = FALSE)
+
+# Histogram of z-scores 
+
+PD_Zscore <- read.table("PD_cdna_gdna_ratios_zscore.txt", header = TRUE, sep = "\t")
+ggplot(PD_Zscore, aes(x=Z_score)) +
+  geom_histogram(aes(y=..density..), fill="#F98125", alpha = 0.8, binwidth = 0.1) +
+  geom_vline(xintercept = c(1.230943878,-1.62044193), linetype = "dashed", color = "black", size = 0.3) +
+  theme_minimal()
+
+# Plotting the 3 replicates separately in overlapping histograms
+
+df_long <- pivot_longer(PD_Zscore, cols=ratio1_Z:ratio3_Z, names_to = "Ratio", values_to = "Number")
+
+ggplot(df_long, aes(x = Number)) +
+  geom_histogram(data=subset(df_long,Ratio == 'ratio1_Z'),colour = "red", binwidth = 0.1) +
+  geom_histogram(data=subset(df_long,Ratio == 'ratio2_Z'),colour = "green", binwidth = 0.1) +
+  geom_histogram(data=subset(df_long,Ratio == 'ratio3_Z'),colour = "blue", binwidth = 0.1) +
+  theme_minimal()
