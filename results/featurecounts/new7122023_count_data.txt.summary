@@ -1,0 +1,15 @@
+Status	/nesi/nobackup/uoa03817/rnaseq_data_analysis/sophie_new7122023/results/star_mapping_outputs/T14-A2/T14-A2Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/sophie_new7122023/results/star_mapping_outputs/T14-A3/T14-A3Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/sophie_new7122023/results/star_mapping_outputs/T14-A4/T14-A4Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/sophie_new7122023/results/star_mapping_outputs/T15A-A3/T15A-A3Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/sophie_new7122023/results/star_mapping_outputs/T15A-A4/T15A-A4Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/sophie_new7122023/results/star_mapping_outputs/T15A-A7/T15A-A7Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/sophie_new7122023/results/star_mapping_outputs/T16-A1/T16-A1Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/sophie_new7122023/results/star_mapping_outputs/T16-A3/T16-A3Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/sophie_new7122023/results/star_mapping_outputs/T16-A9/T16-A9Aligned.sortedByCoord.out.bam
+Assigned	26568593	27551728	32031054	25771512	26021089	28938563	28517732	30965068	34384909
+Unassigned_Unmapped	0	0	0	0	0	0	0	0	0
+Unassigned_Read_Type	0	0	0	0	0	0	0	0	0
+Unassigned_Singleton	38	46	69	36	43	46	52	82	51
+Unassigned_MappingQuality	0	0	0	0	0	0	0	0	0
+Unassigned_Chimera	0	0	0	0	0	0	0	0	0
+Unassigned_FragmentLength	0	0	0	0	0	0	0	0	0
+Unassigned_Duplicate	0	0	0	0	0	0	0	0	0
+Unassigned_MultiMapping	5027112	5750472	6809752	4661455	4295264	6387654	6089827	8369832	7713579
+Unassigned_Secondary	0	0	0	0	0	0	0	0	0
+Unassigned_NonSplit	0	0	0	0	0	0	0	0	0
+Unassigned_NoFeatures	1196748	1268902	1774575	1151257	1134602	1247295	1109199	1225644	1438752
+Unassigned_Overlapping_Length	0	0	0	0	0	0	0	0	0
+Unassigned_Ambiguity	1826726	1894685	2129968	1742560	1782461	2000640	2004817	2182158	2350034

@@ -1,0 +1,15 @@
+Status	/nesi/nobackup/uoa03817/rnaseq_data_analysis/control/results/star_mapping_outputs/control1/control1Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/control/results/star_mapping_outputs/control2/control2Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/control/results/star_mapping_outputs/control3/control3Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/control/results/star_mapping_outputs/control4/control4Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/control/results/star_mapping_outputs/control5/control5Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/control/results/star_mapping_outputs/control6/control6Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/control/results/star_mapping_outputs/control7/control7Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/control/results/star_mapping_outputs/control8/control8Aligned.sortedByCoord.out.bam	/nesi/nobackup/uoa03817/rnaseq_data_analysis/control/results/star_mapping_outputs/control9/control9Aligned.sortedByCoord.out.bam
+Assigned	30895736	29568780	30758576	29755012	30440095	30515975	31553203	30036976	29915810
+Unassigned_Unmapped	0	0	0	0	0	0	0	0	0
+Unassigned_Read_Type	0	0	0	0	0	0	0	0	0
+Unassigned_Singleton	0	0	0	0	0	0	0	0	0
+Unassigned_MappingQuality	0	0	0	0	0	0	0	0	0
+Unassigned_Chimera	0	0	0	0	0	0	0	0	0
+Unassigned_FragmentLength	0	0	0	0	0	0	0	0	0
+Unassigned_Duplicate	0	0	0	0	0	0	0	0	0
+Unassigned_MultiMapping	2683522	2952079	3099052	3067095	2765020	2861040	3150825	3115685	2310883
+Unassigned_Secondary	0	0	0	0	0	0	0	0	0
+Unassigned_NonSplit	0	0	0	0	0	0	0	0	0
+Unassigned_NoFeatures	491029	528401	520441	505948	519239	528968	542870	488457	504276
+Unassigned_Overlapping_Length	0	0	0	0	0	0	0	0	0
+Unassigned_Ambiguity	2175186	2075970	2173585	2095981	2141030	2118929	2214694	2116172	2097483
